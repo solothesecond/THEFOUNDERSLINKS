@@ -36,29 +36,35 @@
         <button onclick="addLink()">Add Link</button>
     </div>
     <script>
-        let links = [];
-
         function addLink() {
             const linkInput = document.getElementById('link');
             const link = linkInput.value.trim();
             if (link) {
-                links.push(link);
-                linkInput.value = '';
-                console.log('Link added:', link);
-                console.log('Current links:', links);
+                fetch('https://your-deployed-app-url.onrender.com/add-link', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ link }),
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    linkInput.value = '';
+                })
+                .catch(error => console.error('Error adding link:', error));
             }
         }
 
         document.getElementById('randomizeButton').addEventListener('click', function() {
-            if (links.length > 0) {
-                const randomIndex = Math.floor(Math.random() * links.length);
-                const randomLink = links[randomIndex];
-                const displayLink = document.getElementById('displayLink');
-                displayLink.innerHTML = `<a href="${randomLink}" target="_blank">${randomLink}</a>`;
-                console.log('Random link selected:', randomLink);
-            } else {
-                alert('No links to randomize!');
-            }
+            fetch('https://your-deployed-app-url.onrender.com/random-link')
+                .then(response => response.text())
+                .then(link => {
+                    const displayLink = document.getElementById('displayLink');
+                    displayLink.innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+                    console.log('Random link selected:', link);
+                })
+                .catch(error => console.error('Error getting random link:', error));
         });
     </script>
 </body>
