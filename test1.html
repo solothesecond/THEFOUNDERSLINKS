@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Link Randomizer</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        #linkInput {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+        #randomizeButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        #displayLink {
+            margin-top: 20px;
+            font-size: 18px;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <button id="randomizeButton">RANDOMIZE!</button>
+    <div id="displayLink"></div>
+    <div id="linkInput">
+        <input type="text" id="link" placeholder="Insert link here">
+        <button onclick="addLink()">Add Link</button>
+    </div>
+    <script>
+        let links = [];
+
+        function addLink() {
+            const linkInput = document.getElementById('link');
+            const link = linkInput.value.trim();
+            if (link) {
+                links.push(link);
+                linkInput.value = '';
+                console.log('Link added:', link);
+                console.log('Current links:', links);
+            }
+        }
+
+        document.getElementById('randomizeButton').addEventListener('click', function() {
+            if (links.length > 0) {
+                const randomIndex = Math.floor(Math.random() * links.length);
+                const randomLink = links[randomIndex];
+                const displayLink = document.getElementById('displayLink');
+                displayLink.innerHTML = `<a href="${randomLink}" target="_blank">${randomLink}</a>`;
+                console.log('Random link selected:', randomLink);
+            } else {
+                alert('No links to randomize!');
+            }
+        });
+    </script>
+</body>
+</html>
