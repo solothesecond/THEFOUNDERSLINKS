@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-    <button id="randomizeButton">RANDOMIZE!</button>
+    <button id="randomizeButton">generate!</button>
     <div id="displayLink"></div>
     <div id="linkInput">
         <input type="text" id="link" placeholder="Insert link here">
@@ -40,7 +40,7 @@
             const linkInput = document.getElementById('link');
             const link = linkInput.value.trim();
             if (link) {
-                fetch('https://your-deployed-app-url.onrender.com/add-link', {
+                fetch('https://learningonline.global.ssl.fastly.net', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@
         }
 
         document.getElementById('randomizeButton').addEventListener('click', function() {
-            fetch('https://your-deployed-app-url.onrender.com/random-link')
+            fetch('https://schoollearning.soloo.fun')
                 .then(response => response.text())
                 .then(link => {
                     const displayLink = document.getElementById('displayLink');
